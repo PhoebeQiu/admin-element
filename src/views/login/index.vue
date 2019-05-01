@@ -13,7 +13,7 @@
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          v-model="loginForm.username"
+          v-model="username"
           :placeholder="$t('login.username')"
           name="username"
           type="text"
@@ -26,33 +26,37 @@
           <svg-icon icon-class="password" />
         </span>
         <el-input
-          v-model="loginForm.password"
+          v-model="password"
           :type="passwordType"
           :placeholder="$t('login.password')"
           name="password"
           auto-complete="on"
-          @keyup.enter.native="handleLogin"
+          @keyup.enter.native="login"
         />
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="login">
         {{ $t('login.logIn') }}
       </el-button>
 
       <div style="position:relative">
         <div class="tips">
-          <span>{{ $t('login.username') }} : admin</span>
-          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
+          <!-- <span>{{ $t('login.username') }} : admin</span> -->
+          <!-- <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span> -->
         </div>
         <div class="tips">
           <span style="margin-right:18px;">
-            {{ $t('login.username') }} : editor
+            <!-- {{ $t('login.username') }} : editor -->
           </span>
-          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
+          <!-- <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span> -->
         </div>
+
+        <el-button class="third-button" :loading="loading" type="primary" @click.native.prevent="handleLogin">
+          {{ $t('login.logIn') }}
+        </el-button>
 
         <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
           {{ $t('login.thirdparty') }}
@@ -74,6 +78,8 @@
 import { validUsername } from '@/utils/validate'
 import LangSelect from '@/components/LangSelect'
 import SocialSign from './socialsignin'
+
+import { login } from '@/api/login'
 
 export default {
   name: 'Login',
@@ -105,7 +111,10 @@ export default {
       passwordType: 'password',
       loading: false,
       showDialog: false,
-      redirect: undefined
+      redirect: undefined,
+      username: '',
+      password: '',
+      type: 0
     }
   },
   watch: {
@@ -129,6 +138,12 @@ export default {
       } else {
         this.passwordType = 'password'
       }
+    },
+    login() {
+      login(this.username, this.password, this.type).then(response => {
+        console.log('login成功', response.data)
+      })
+      this.handleLogin()
     },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
@@ -229,7 +244,7 @@ $light_gray:#eee;
     position: relative;
     width: 520px;
     max-width: 100%;
-    padding: 160px 35px 0;
+    padding: 80px 35px 0;
     margin: 0 auto;
     overflow: hidden;
   }
@@ -276,6 +291,12 @@ $light_gray:#eee;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
+  }
+  .third-button {
+    position: absolute;
+    width: 140px;
+    left: 0;
+    bottom: 6px;
   }
   .thirdparty-button {
     position: absolute;
