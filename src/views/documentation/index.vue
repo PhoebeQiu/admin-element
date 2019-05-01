@@ -54,7 +54,7 @@ export default {
     statisticSearchInfo2() {
       statisticSearchInfo().then(response => {
         const reaData = response.data.data.slice(0, 6)
-        // console.log('获取搜索排行数据', reaData)
+        console.log('获取搜索排行数据', reaData)
         reaData.forEach(item => {
           this.pieList.push(item.url)
         })
@@ -73,8 +73,9 @@ export default {
       // this.lineList = []
       // this.lineData = []
       listLocation().then(response => {
-        // console.log('路径图', response.data)
-        const reaData = response.data.data.slice(0, 99)
+        console.log('路径图', response.data)
+        const reaData = response.data.data
+        // const reaData = response.data.data.slice(0, 99)
         // console.log('路径图--', reaData)
         const coords = []
         reaData.forEach(item => {
@@ -94,20 +95,20 @@ export default {
       listWeather().then(response => {
         console.log('天气图', response.data)
         const reaData = response.data.data.slice(0, 99)
-        console.log('天气图--', reaData)
+        // console.log('天气图--', reaData)
         reaData.forEach(item => {
           const a = [item.longitude, item.latitude, item.tmp]
           const b = {}
           b.value = a
           this.mapList.push(b)
         })
-        console.log('天气图lineList', this.mapList)
+        // console.log('天气图lineList', this.mapList)
         const aa = [reaData[0].longitude, reaData[0].latitude, reaData[0].tmp]
         const bb = {}
         bb.value = aa
         this.mapMax.push(bb)
         this.mapData = [reaData[0].longitude, reaData[0].latitude]
-        console.log('天气图lineData', this.mapData)
+        // console.log('天气图lineData', this.mapData)
       })
     }
   }

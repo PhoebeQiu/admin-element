@@ -47,6 +47,20 @@ export function listWeather(uid) {
   })
 }
 
+// type:1 book 2 movie 3 music
+export function searchAction(uid, content, type) {
+  return requestSpring({
+    url: '/search/searchAction',
+    method: 'post',
+    header: { 'content-type': 'application/json' },
+    data: {
+      'userId': uid,
+      'content': content,
+      'type': type
+    }
+  })
+}
+
 export function listSumSearchAction(data) {
   return requestSpring({
     url: '/search/listSumSearchAction',

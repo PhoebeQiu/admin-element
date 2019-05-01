@@ -54,13 +54,13 @@
           <!-- <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span> -->
         </div>
 
-        <el-button class="third-button" :loading="loading" type="primary" @click.native.prevent="handleLogin">
+        <!-- <el-button class="third-button" :loading="loading" type="primary" @click.native.prevent="handleLogin">
           {{ $t('login.logIn') }}
         </el-button>
 
         <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
           {{ $t('login.thirdparty') }}
-        </el-button>
+        </el-button> -->
       </div>
     </el-form>
 
@@ -141,7 +141,10 @@ export default {
     },
     login() {
       login(this.username, this.password, this.type).then(response => {
-        console.log('login成功', response.data)
+        console.log('login成功', response.data.data)
+        this.$store.dispatch('getUidByUsername', response.data.data.id)
+        // const a = this.$store.getters.uid
+        // console.log('uid------', a)
       })
       this.handleLogin()
     },

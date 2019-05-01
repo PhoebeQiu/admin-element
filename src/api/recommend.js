@@ -1,45 +1,28 @@
-import request from '@/utils/request'
+// import request from '@/utils/request'
 import requestSpring from '@/utils/requestSpring'
 
-// 登录
-export function login(content, password, type) {
+export function simpleRecomend(userId) {
   const data = {
-    content,
-    password,
-    type
+    userId
   }
   return requestSpring({
-    url: '/user/login',
+    url: '/recommend/simpleRecommend',
     method: 'post',
     header: { 'content-type': 'application/json' },
     data
   })
 }
 
-export function loginByUsername(username, password) {
+export function recommendSearchContent(userId, content, type) {
   const data = {
-    username,
-    password
+    userId,
+    content,
+    type
   }
-  return request({
-    url: '/login/login',
+  return requestSpring({
+    url: '/recommend/recommendSearchContent',
     method: 'post',
+    header: { 'content-type': 'application/json' },
     data
   })
 }
-
-export function logout() {
-  return request({
-    url: '/login/logout',
-    method: 'post'
-  })
-}
-
-export function getUserInfo(token) {
-  return request({
-    url: '/user/info',
-    method: 'get',
-    params: { token }
-  })
-}
-
