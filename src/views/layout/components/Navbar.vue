@@ -31,7 +31,7 @@
         <el-dropdown-menu slot="dropdown">
           <router-link to="/">
             <el-dropdown-item>
-              {{ $t('navbar.dashboard') }}
+              <span style="display:block; height:50px; line-height:50px; font-size:18px;">{{ $t('navbar.dashboard') }}</span>
             </el-dropdown-item>
           </router-link>
           <!-- <a target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">
@@ -40,7 +40,7 @@
             </el-dropdown-item>
           </a> -->
           <el-dropdown-item divided>
-            <span style="display:block;" @click="logout">{{ $t('navbar.logOut') }}</span>
+            <span style="display:block; height:50px; line-height:50px; font-size:18px;" @click="logout">{{ $t('navbar.logOut') }}</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -165,6 +165,10 @@ export default {
           top: 25px;
           font-size: 12px;
         }
+      }
+
+      .atatar-navbar {
+        height: 200px;
       }
     }
   }

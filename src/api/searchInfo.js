@@ -19,7 +19,7 @@ export function statisticSearchInfo(uid) {
     method: 'post',
     header: { 'content-type': 'application/json' },
     data: {
-      uid: '0a6a4fac0f2845708c5bfc1be8a25b7b'
+      uid
     }
   })
 }
@@ -31,7 +31,7 @@ export function listLocation(uid) {
     header: { 'content-type': 'application/json' },
     data: {
       interval: 5,
-      uid: '0a6a4fac0f2845708c5bfc1be8a25b7b'
+      uid
     }
   })
 }
@@ -42,7 +42,7 @@ export function listWeather(uid) {
     method: 'post',
     header: { 'content-type': 'application/json' },
     data: {
-      uid: '0a6a4fac0f2845708c5bfc1be8a25b7b'
+      uid
     }
   })
 }

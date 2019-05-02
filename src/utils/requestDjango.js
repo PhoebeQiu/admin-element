@@ -5,7 +5,8 @@ import { getToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: 'http://120.77.86.76:6060',
+  baseURL: 'http://120.77.86.76:6060', // 服务器
+  // baseURL: 'http://192.168.43.148:9527', // phoebe的ip
   // baseURL: 'http://192.168.8.39:8000', // api 的 base_url
   timeout: 5000 // request timeout
 })

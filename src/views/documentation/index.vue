@@ -1,18 +1,21 @@
 <template>
   <div class="app-container documentation-container">
-    <div class="chart-wrapper">
+    <p v-if="pieList.length > 0" class="search_p">Google - 网站搜索次数排行榜：</p>
+    <div v-if="pieList.length > 0" class="chart-wrapper">
       <div class="chart-item">
         <pie-chart :pie-list="pieList" :pie-data="pieData" />
       </div>
     </div>
 
-    <div class="chart-wrapper">
+    <p v-if="mapList.length > 0" class="search_p">天气地图：</p>
+    <div v-if="mapList.length > 0" class="chart-wrapper">
       <div class="chart-item">
         <map-chart :map-list="mapList" :map-data="mapData" :map-max="mapMax" />
       </div>
     </div>
 
-    <div class="chart-wrapper">
+    <p v-if="lineList.length > 0" class="search_p">路径地图：</p>
+    <div v-if="lineList.length > 0" class="chart-wrapper">
       <div class="chart-item">
         <line-chart :line-list="lineList" :line-data="lineData" />
       </div>
@@ -42,7 +45,17 @@ export default {
       mapMax: []
     }
   },
-  created() {
+  computed: {
+    uid: function() {
+      return this.$store.getters.uid
+    }
+  },
+  watch: {
+    uid() {
+      this.statisticSearchInfo2()
+      this.listLocation2()
+      this.listWeather2()
+    }
   },
   mounted() {
     this.statisticSearchInfo2()
@@ -52,7 +65,8 @@ export default {
   methods: {
     // 搜索排行
     statisticSearchInfo2() {
-      statisticSearchInfo().then(response => {
+      this.pieList = []
+      statisticSearchInfo(this.uid).then(response => {
         const reaData = response.data.data.slice(0, 6)
         console.log('获取搜索排行数据', reaData)
         reaData.forEach(item => {
@@ -70,9 +84,10 @@ export default {
     },
     // 路径
     listLocation2() {
+      this.lineList = null
       // this.lineList = []
       // this.lineData = []
-      listLocation().then(response => {
+      listLocation(this.uid).then(response => {
         console.log('路径图', response.data)
         const reaData = response.data.data
         // const reaData = response.data.data.slice(0, 99)
@@ -91,11 +106,12 @@ export default {
         // console.log('路径图lineData', this.lineData)
       })
     },
+    // 天气
     listWeather2() {
-      listWeather().then(response => {
+      this.mapList = []
+      listWeather(this.uid).then(response => {
         console.log('天气图', response.data)
         const reaData = response.data.data.slice(0, 99)
-        // console.log('天气图--', reaData)
         reaData.forEach(item => {
           const a = [item.longitude, item.latitude, item.tmp]
           const b = {}
@@ -116,6 +132,11 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+.search_p {
+  text-align: center;
+  font-size: 15px;
+  margin-top: 10px;
+}
 .documentation-container {
   // margin: 50px;
   // .document-btn {
