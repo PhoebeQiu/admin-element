@@ -41,9 +41,9 @@
 
     <p v-if="listData" class="search_p">喜欢这个内容的人，也喜欢：</p>
     <div v-if="listData" class="card-layout">
-      <div v-for="(item, index) in listData" :key="index" class="cards-container">
-        <a class="cards-a" :href="item.url" referrer="no-referrer|origin|unsafe-url">
-          <img :src="item.cover" class="cards-a-img" referrer="no-referrer|origin|unsafe-url">
+      <div v-for="(item, index) in listData" :key="index" class="cards-container" @click="toSearchUrl(item.detailUrl, item.id)">
+        <a class="cards-a" referrer="no-referrer|origin|unsafe-url">
+          <img :src="item.coverUrl" class="cards-a-img" referrer="no-referrer|origin|unsafe-url">
         </a>
         <div class="cards-content">
           <p class="cards-name"><a href="">{{ item.title }}</a></p>
@@ -56,8 +56,8 @@
 
     <p v-if="recommendList" class="search_p">热门推荐：</p>
     <div v-if="recommendList" class="card-layout">
-      <div v-for="(item, index) in recommendList" :key="index" class="cards-container">
-        <a class="cards-a" :href="item.detailUrl" referrer="no-referrer|origin|unsafe-url">
+      <div v-for="(item, index) in recommendList" :key="index" class="cards-container" @click="toSearchUrl(item.detailUrl, item.id)">
+        <a class="cards-a" referrer="no-referrer|origin|unsafe-url">
           <img :src="item.coverUrl" class="cards-a-img" referrer="no-referrer|origin|unsafe-url">
         </a>
         <div class="cards-content">
